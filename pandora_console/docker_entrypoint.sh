@@ -78,11 +78,8 @@ if [ ! -f install.php.done ]; then
 	mv -f install.php install.php.done
 fi
 
-/usr/bin/id pandora 2>/dev/null 1>/dev/null
-if [ $? -ne 0 ]; then
-	#Create the pandora user to run the anyterd, mainly
-	/usr/sbin/useradd -d /home/pandora -s /bin/false -M -g 0 pandora
-fi
+#Create the pandora user to run the anyterd, mainly
+/usr/bin/id pandora || /usr/sbin/useradd -d /home/pandora -s /bin/false -M -g 0 pandora
 
 #Rock n' roll!
 /etc/init.d/crond start &

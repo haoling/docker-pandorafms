@@ -12,4 +12,13 @@ node('docker') {
             app.push("6")
         }
     }
+    stage('Build image') {
+        app = docker.build("haoling/pandorafms-server", "pandora_server")
+    }
+    stage('Push image') {
+        docker.withRegistry('https://drive.fei-yen.jp:5443') {
+            app.push("dev-${env.BUILD_NUMBER}")
+            app.push("6")
+        }
+    }
 }
